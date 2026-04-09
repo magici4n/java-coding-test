@@ -1,5 +1,6 @@
 # 스택(Stack)
 _________________
+-맨 나중에 넣은 데이터를 가장 먼저 꺼내는 구조(LIFO = Last In First Out)
 ### 자바에서 스택을 사용하는 방법   
 1. Stack 클래스
 <pre>
@@ -27,20 +28,24 @@ Deque<Integer> stack = new ArrayDeque<>();
 <pre><code>
 stack.push(5);
 </code></pre>
+
 - pop() : 맨 위 값 꺼내면서 제거(비어 있는데 pop할 경우 에러)
 <pre><code>
 int x = stack.pop();
 </code></pre>
+
 - peek() : 맨 위 값 보기만 하고 제거는 안 함(비어 있는데 peek할 경우 에러)
 <pre><code>
 int x = stack.peek();
 </code></pre>
+
 - isEmpty() : 비었는지 확인
 <pre><code>
 if (stack.isEmpty()) {
     System.out.println("비어있음");
 }
 </code></pre>
+
 - size() : 들어있는 개수 확인  
 <pre><code>
 System.out.println(stack.size());
