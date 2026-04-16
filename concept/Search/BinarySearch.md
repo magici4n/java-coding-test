@@ -22,8 +22,8 @@ static boolean binarySearch(int[] arr, int target){
         int mid = (left+right)/2;
 
         if(arr[mid] == target){
-            return true;
-        }else if(arr[mid] < target{
+            
+        }else if(arr[mid] < target){
             left = mid + 1;
         }else{
             right = mid - 1;
