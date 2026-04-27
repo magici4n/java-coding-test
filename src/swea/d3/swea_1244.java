@@ -3,61 +3,67 @@ package swea.d3;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 import java.util.StringTokenizer;
 
 public class swea_1244 {
-    public static void main(String[] args)throws IOException {
+    static char[] numbers;
+    static int chance;
+    static int answer;
+    static HashSet<String>[] visited;
+
+    static void dfs(int count) {
+        String current = new String(numbers);
+
+        if (visited[count].contains(current)) {
+            return;
+        }
+        visited[count].add(current);
+
+        if (count == chance) {
+            answer = Math.max(answer, Integer.parseInt(current));
+            return;
+        }
+
+        for (int i = 0; i < numbers.length - 1; i++) {
+            for (int j = i + 1; j < numbers.length; j++) {
+                swap(i, j);
+                dfs(count + 1);
+                swap(i, j); // 원상복구
+            }
+        }
+    }
+
+    static void swap(int i, int j) {
+        char temp = numbers[i];
+        numbers[i] = numbers[j];
+        numbers[j] = temp;
+    }
+
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
         int T = Integer.parseInt(br.readLine());
 
-        for(int tc = 0; tc<T; tc++){
-            sb.append("#").append(tc+1).append(" ");
+        for (int tc = 1; tc <= T; tc++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
-            String num =st.nextToken();
-            int N = Integer.parseInt(st.nextToken());
-            int [] arr = new int [num.length()];
+            String num = st.nextToken();
+            chance = Integer.parseInt(st.nextToken());
 
-            for(int i =0; i<num.length(); i++){
-                arr[i] = num.charAt(i) - '0';
+            numbers = num.toCharArray();
+            answer = 0;
+
+            visited = new HashSet[chance + 1];
+            for (int i = 0; i <= chance; i++) {
+                visited[i] = new HashSet<>();
             }
 
-            for(int i =0; i < arr.length-1; i++){
-                if (N== 0){
-                    break;
-                }
-                int maxIndex = i;
+            dfs(0);
 
-                for(int j = i+1; j<arr.length; j++){
-                    if(arr[j] >= arr[maxIndex]){
-                        maxIndex = j;
-                    }
-                }
-                if (maxIndex == i){
-                    if(i == arr.length-2){
-                        int tmp = arr[i];
-                        arr[i] = arr[i+1];
-                        arr[i+1] = tmp;
-                        N--;
-                    }else{
-                        continue;
-                    }
-                }
-                if(N > 0) {
-                    int tmp = arr[i];
-                    arr[i] = arr[maxIndex];
-                    arr[maxIndex] = tmp;
-                    N--;
-                }else{
-                    break;
-                }
-            }
-            for(int i = 0; i< arr.length; i++){
-                sb.append(arr[i]);
-            }
-            sb.append("\n");
+            sb.append("#").append(tc).append(" ").append(answer).append("\n");
         }
+
         System.out.print(sb);
     }
 }
