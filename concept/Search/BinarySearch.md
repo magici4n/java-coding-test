@@ -13,25 +13,26 @@ ___________________________
 
 
 ### 구현 코드   
-<pre><code>
-static boolean binarySearch(int[] arr, int target){
+```text
+static int binarySearch(int[] arr, int target) {
     int left = 0;
-    int right = arr.length -1;
-    
-    while(left <= right){
-        int mid = (left+right)/2;
+    int right = arr.length - 1;
 
-        if(arr[mid] == target){
-            
-        }else if(arr[mid] < target){
-            left = mid + 1;
-        }else{
-            right = mid - 1;
+    while (left <= right) {
+        int mid = (left + right) / 2;
+
+        if (arr[mid] == target) {
+            return mid; // target의 인덱스 반환
+        } else if (arr[mid] < target) {
+            left = mid + 1; // 오른쪽 탐색
+        } else {
+            right = mid - 1; // 왼쪽 탐색
         }
     }
-    return false;
+
+    return -1; // 못 찾으면 -1
 }
-</code></pre>
+```
 
 ### 자바 기본 메서드 사용
 Arrays.sort(arr); 와 같이 반드시 정렬 먼저 한 후   
